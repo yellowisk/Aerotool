@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { twMerge } from "tailwind-merge";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,10 +22,17 @@ export default function RootLayout({
       <body
         className={twMerge(
           inter.className,
-          "bg-white text-black dark:bg-neutral-950 dark:text-white antialiased"
+          "bg-white text-black dark:bg-zinc-950 dark:text-white antialiased"
         )}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
       <Toaster />
     </html>

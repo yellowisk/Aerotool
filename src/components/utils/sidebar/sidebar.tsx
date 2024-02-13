@@ -1,8 +1,12 @@
+"use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SidebarItem } from "./sidebar-item";
+import { usePathname } from "next/navigation";
+import { DropdownButtonTheme } from "../theme-dropdown-button";
 
 export function Sidebar() {
-  const appRoutes: string[] = ["/home", "/request", "/events", "/tools"];
+  const appRoutes: string[] = ["/home", "/tools", "/request", "/events"];
+  const path = usePathname();
 
   return (
     <aside className="flex flex-col p-4 items-center justify-between border-r-2">
@@ -15,10 +19,13 @@ export function Sidebar() {
       </Avatar>
       <div className="flex flex-col space-y-4">
         {appRoutes.map((route) => (
-          <SidebarItem key={route} route={route} />
+          <SidebarItem key={route} route={route} active={path === route} />
         ))}
       </div>
-      <SidebarItem route="/settings" />
+      <div className="flex flex-col space-y-4 items-center justify-center">
+        <DropdownButtonTheme />
+        <SidebarItem route="/settings" active={path === "/settings"} />
+      </div>
     </aside>
   );
 }
