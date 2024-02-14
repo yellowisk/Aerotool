@@ -1,16 +1,20 @@
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SidebarItem } from "./sidebar-item";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { DropdownButtonTheme } from "../theme-dropdown-button";
 
 export function Sidebar() {
   const appRoutes: string[] = ["/home", "/tools", "/request", "/events"];
   const path = usePathname();
+  const router = useRouter();
 
   return (
     <aside className="flex flex-col p-4 items-center justify-between border-r-2">
-      <Avatar>
+      <Avatar
+        onClick={() => router.push("/profile")}
+        className="cursor-pointer hover:scale-105 hover:opacity-80 transition-all"
+      >
         <AvatarImage
           src="https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=1439"
           alt="Avatar"
