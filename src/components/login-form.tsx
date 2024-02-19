@@ -9,8 +9,10 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
 import { Input } from "./ui/input";
 
 const formSchema = z.object({
-  promptuary: z.string(),
-  password: z.string(),
+  promptuary: z.string().regex(/^(SC)\\d{6,7}$/).transform((value) => {
+    return value.slice(0, 2).toUpperCase() + value.slice(2);
+  }),
+  password: z.string().nonempty("A senha não pode ser vazia"),
 });
 
 export function LoginForm() {
